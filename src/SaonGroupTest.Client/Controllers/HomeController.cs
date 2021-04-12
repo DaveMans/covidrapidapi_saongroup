@@ -1,17 +1,16 @@
-﻿using System.Diagnostics;
+﻿using System.Threading.Tasks;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.Extensions.Logging;
-using SaonGroupTest.Client.Models;
+using SaonGroupTest.Client.Services;
 
 namespace SaonGroupTest.Client.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
+        private readonly ICovidRapiApiService _covidRapidApiService;
 
-        public HomeController(ILogger<HomeController> logger)
+        public HomeController(ICovidRapiApiService covidRapiApiService)
         {
-            _logger = logger;
+            _covidRapidApiService = covidRapiApiService;
         }
 
         public IActionResult Index()
@@ -19,15 +18,21 @@ namespace SaonGroupTest.Client.Controllers
             return View();
         }
 
-        public IActionResult Privacy()
+        [HttpPost]
+        public async Task<JsonResult> GetReportByRegion(string iso)
         {
-            return View();
+            var data = await _covidRapidApiService.GetReport(iso);
+            return Json(data);
         }
 
-        [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]
-        public IActionResult Error()
+
+        [HttpPost]
+        public async Task<JsonResult> GetRegions()
         {
-            return View(new ErrorViewModel { RequestId = Activity.Current?.Id ?? HttpContext.TraceIdentifier });
+            var regions = await _covidRapidApiService.GetRegionsList();
+            return Json(regions);
         }
+
+
     }
 }

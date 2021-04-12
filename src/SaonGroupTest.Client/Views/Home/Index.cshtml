@@ -1,8 +1,43 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "SaonGroup Test - Covid Rapid API";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div id="overlay" class="overlay">
+    <div class="loader"></div>
 </div>
+
+<div class="container">
+    <div class="text-center">
+        <h1 class="display-4">SaonGroup Test - Covid Rapid API </h1>
+        <div class="row">
+        </div>
+    </div>
+    </br>
+    <div class="text-center">
+        <div class="row">
+            <div class="col-sm">
+                <div id="regionsComboBox"></div>
+            </div>
+            <div class="col-sm">
+                <button id="regionsReport"
+                    title="Clic to display the top 10 regions or provinces with most COVID cases">Report</button>
+            </div>
+            <div class="col-sm">
+                <button id="regionsXml" title="Export grid data as XML file.">XML</button>
+            </div>
+            <div class="col-sm">
+                <button id="regionsJson" title="Export grid data as JSON file.">JSON</button>
+            </div>
+            <div class="col-sm">
+                <button id="regionsCsv" title="Export grid data as CSV file.">CSV</button>
+            </div>
+        </div>
+        </br>
+        <div class="row">
+            <div id="regionsGrid"></div>
+        </div>
+    </div>
+</div>
+
+@Html.Hidden("getRegions", @Url.Action("GetRegions", "Home"))
+@Html.Hidden("getReportByRegion", @Url.Action("GetReportByRegion", "Home"))
