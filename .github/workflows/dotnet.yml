@@ -33,5 +33,5 @@ jobs:
         uses: azure/webapps-deploy@v1
         with:
           app-name: covidrapidapitest # Replace with your app name
-          publish-profile: ${{ secrets.publish_profile}} # Define secret variable in repository settings as per action documentation
+          publish-profile: ${{ secrets.PUBLISH_PROFILE}} # Define secret variable in repository settings as per action documentation
           package: "./dotnetcorewebapp"
