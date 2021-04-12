@@ -1,25 +1,30 @@
-﻿// Please see documentation at https://docs.microsoft.com/aspnet/core/client-side/bundling-and-minification
-// for details on configuring this project to bundle and minify static web assets.
+﻿$(document).ready(function () {
+  $("#regionsReport").kendoButton();
+  $("#regionsXml").kendoButton();
+  $("#regionsJson").kendoButton();
+  $("#regionsCsv").kendoButton();
+  var gridGlobalData = null;
 
-// Write your JavaScript code.
-
-$(document).ready(function () {
-  function renderDropDown(id, data, isRegion) {
-    $("#" + id).kendoDropDownList({
+  function renderComboBox(id, data) {
+    $("#" + id).kendoComboBox({
       dataTextField: "name",
       dataValueField: "iso",
       dataSource: data,
-      height: 100,
-      dataBound: function (e) {
-        this.select(0);
-        isRegion
-          ? $("#regionsReport").trigger("click")
-          : $("#provincesReport").trigger("click");
-      },
+      height: 300,
+      filter: "contains",
+      suggest: true,
+    });
+  }
+
+  function loadRegions() {
+    var url = $("#getRegions").val();
+    getData(url, {}).then(function (data) {
+      renderComboBox("regionsComboBox", data);
     });
   }
 
   function getData(url, parameters) {
+    $("#overlay").attr("style", "display:flex");
     return new Promise(function (resolve, reject) {
       var result = { data: null, success: false };
       $.ajax({
@@ -29,64 +34,113 @@ $(document).ready(function () {
         dataType: "json",
         cache: false,
         success: function (result) {
-          console.log(result);
-          resolve(result.data);
+          gridGlobalData = result;
+          resolve(result);
+          $("#overlay").attr("style", "display:none");
         },
         error: function () {
+          swal("Error", "There was an error, please try again!", "error");
           reject();
+          $("#overlay").attr("style", "display:none");
         },
       });
       return result;
     });
   }
 
-  function renderGrid(id, data, isRegion) {
-    $("#" + id).kendoGrid({
-      dataSource: {
-        data: data,
-      },
-      columns: [
-        {
-          field: "location",
-          title: isRegion ? "Region" : "Provinces",
+  function renderGrid(id, data, areAllRegions) {
+    $("#" + id)
+      .empty()
+      .kendoGrid({
+        dataSource: {
+          data: data,
         },
-        { field: "cases", title: "Cases" },
-        { field: "deaths", title: "Deaths" },
-      ],
-    });
-  }
-
-  $("#provincesReport").click(function () {
-    var provincesIso = $("#provincesDropDown")
-      .data("kendoDropDownList")
-      .value();
-    getData(provincesUrl, { iso: provincesIso }).then(function (data) {
-      renderGrid("provincesGrid", data);
-    });
-  });
-
-  $("#regionReport").click(function () {
-    var regionIso = $("#regionsDropDown").data("kendoDropDownList").value();
-    getData(regionsUrl, { iso: regionIso }).then(function (data) {
-      renderGrid("provincesGrid", data);
-    });
-  });
-
-  function loadInformation() {
-    var regionsUrl = $("#getRegions").val();
-
-    getData(regionsUrl, {})
-      .then(function (data) {
-        renderDropDown("regionsDropDown", data);
-      })
-      .then(function () {
-        var firstRegion = regionData[0];
-        var provincesUrl = $("#getCountriesDataByRegion").val();
-        getData(provincesUrl, { iso: firstRegion.iso }).then(function (data) {
-          renderDropDown("provincesDropDown", data);
-        });
+        sortable: true,
+        filterable: true,
+        columns: [
+          {
+            field: "location",
+            title: areAllRegions ? "Region" : "Provinces",
+            headerAttributes: {
+              class: "color-red",
+              style: "text-align: center",
+            },
+          },
+          {
+            field: "confirmed",
+            title: "Cases",
+            format: "{0:n0}",
+            headerAttributes: {
+              class: "color-red",
+              style: "text-align: center",
+            },
+          },
+          {
+            field: "deaths",
+            title: "Deaths",
+            format: "{0:n0}",
+            headerAttributes: {
+              class: "color-red",
+              style: "text-align: center",
+            },
+          },
+        ],
       });
   }
 
-  loadInformation();
+  $("#regionsReport").click(function () {
+    var regionIso = $("#regionsComboBox").data("kendoComboBox").value();
+
+    if (regionIso === "") {
+      swal("Error", "Please select a region first!", "error");
+      return;
+    }
+
+    var reportUrl = $("#getReportByRegion").val();
+    var areAllRegions = regionIso === "ALL";
+    getData(reportUrl, { iso: regionIso }).then(function (data) {
+      renderGrid("regionsGrid", data, areAllRegions);
+    });
+  });
+
+  loadRegions();
+
+  $("#regionsXml").click(function () {
+    if (gridGlobalData === null) {
+      swal(
+        "Error",
+        "Please select a region data first to be exported!",
+        "error"
+      );
+      return;
+    }
+
+    var xmlData = jsonToXml(gridGlobalData);
+    downloadFile("regions_top10_covid_cases.xml", xmlData);
+  });
+  $("#regionsJson").click(function () {
+    if (gridGlobalData === null) {
+      swal(
+        "Error",
+        "Please select a region data first to be exported!",
+        "error"
+      );
+      return;
+    }
+    var data = JSON.stringify(gridGlobalData);
+    downloadFile("regions_top10_covid_cases.json", data);
+  });
+  $("#regionsCsv").click(function () {
+    if (gridGlobalData === null) {
+      swal(
+        "Error",
+        "Please select a region data first to be exported!",
+        "error"
+      );
+      return;
+    }
+    var data = JSON.stringify(gridGlobalData);
+    var csvData = jsonToCsv(data);
+    downloadFile("regions_top10_covid_cases.csv", csvData);
+  });
 });

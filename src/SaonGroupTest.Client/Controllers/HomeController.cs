@@ -19,18 +19,12 @@ namespace SaonGroupTest.Client.Controllers
         }
 
         [HttpPost]
-        public async Task<JsonResult> GetProvincesDataByCountryId(string iso)
+        public async Task<JsonResult> GetReportByRegion(string iso)
         {
-            var data = await _covidRapidApiService.GetProvincesDataByCountryId(iso);
+            var data = await _covidRapidApiService.GetReport(iso);
             return Json(data);
         }
 
-        [HttpPost]
-        public async Task<JsonResult> GetCountriesDataByRegion(string name)
-        {
-            var data = await _covidRapidApiService.GetCountriesDataByRegion(name);
-            return Json(data);
-        }
 
         [HttpPost]
         public async Task<JsonResult> GetRegions()
@@ -39,11 +33,6 @@ namespace SaonGroupTest.Client.Controllers
             return Json(regions);
         }
 
-        [HttpPost]
-        public async Task<JsonResult> GetProvincesListByRegionId(string iso)
-        {
-            var regions = await _covidRapidApiService.GetProvincesListByRegionId(iso);
-            return Json(regions);
-        }
+
     }
 }

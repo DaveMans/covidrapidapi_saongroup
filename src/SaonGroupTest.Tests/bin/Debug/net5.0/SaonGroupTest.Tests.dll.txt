@@ -1,1 +1,1 @@
-SaonGroupTest.Tests.SaonGroupTests.Test1
+SaonGrouptest.Tests.Tests.RegionsTests
