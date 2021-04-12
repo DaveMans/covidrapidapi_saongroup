@@ -1,8 +1,62 @@
 ﻿@{
-    ViewData["Title"] = "Home Page";
+    ViewData["Title"] = "SaonGroup Test - Covid Rapid API";
 }
 
-<div class="text-center">
-    <h1 class="display-4">Welcome</h1>
-    <p>Learn about <a href="https://docs.microsoft.com/aspnet/core">building Web apps with ASP.NET Core</a>.</p>
+<div class="container">
+    <div class="text-center">
+        <h1 class="display-4">SaonGroup Test - Covid Rapid API </h1>
+        <div class="row">
+        </div>
+    </div>
+    </br>
+    <div class="text-center">
+        <div class="row">
+            <div class="col-sm">
+                <div id="regionsDropDown"></div>
+            </div>
+            <div class="col-sm">
+                <button id="regionsReport">Report</button>
+            </div>
+            <div class="col-sm">
+                <button id="regionsXml">XML</button>
+            </div>
+            <div class="col-sm">
+                <button id="regionsJson">JSON</button>
+            </div>
+            <div class="col-sm">
+                <button id="regionsCsv">CSV</button>
+            </div>
+        </div>
+        <div class="row">
+            <div id="regionsGrid"></div>
+        </div>
+    </div>
+    </br>
+    <div class="text-center">
+        <div class="row">
+            <div class="col-sm">
+                <div id="provincesDropDown"></div>
+            </div>
+            <div class="col-sm">
+                <button id="provincesReport">Report</button>
+            </div>
+            <div class="col-sm">
+                <button id="provincesXml">XML</button>
+            </div>
+            <div class="col-sm">
+                <button id="provincesJson">JSON</button>
+            </div>
+            <div class="col-sm">
+                <button id="provincesCsv">CSV</button>
+            </div>
+        </div>
+        <div class="row">
+            <div id="provincesGrid"></div>
+        </div>
+    </div>
 </div>
+
+@Html.Hidden("getRegions", @Url.Action("GetRegions", "Home"))
+@Html.Hidden("getProvincesListByRegionId", @Url.Action("GetProvincesListByRegionId", "Home"))
+@Html.Hidden("getCountriesDataByRegion", @Url.Action("GetCountriesDataByRegion", "Home"))
+@Html.Hidden("getProvincesDataByCountryId", @Url.Action("GetProvincesDataByCountryId", "Home"))

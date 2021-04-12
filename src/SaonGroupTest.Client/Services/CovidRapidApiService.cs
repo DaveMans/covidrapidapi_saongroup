@@ -1,9 +1,9 @@
 using System;
 using System.Net.Http;
-using System.Net.Http.Headers;
 using System.Net.Http.Json;
 using System.Threading.Tasks;
 using Microsoft.Extensions.Configuration;
+using SaonGroupTest.Client.Models;
 
 namespace SaonGroupTest.Client.Services
 {
@@ -20,11 +20,11 @@ namespace SaonGroupTest.Client.Services
             _config = config;
         }
 
-        public async Task<object> GetRegionsList()
+        public async Task<RegionDtoModel> GetRegionsList()
         {
             var client = GetClient();
             var path = $"/regions";
-            var response = await client.GetFromJsonAsync<object>(path);
+            var response = await client.GetFromJsonAsync<RegionDtoModel>(path);
             return response;
         }
         public async Task<object> GetProvincesListByRegionId(string iso)
@@ -54,9 +54,11 @@ namespace SaonGroupTest.Client.Services
         {
             var baseUrl = _config["CovidRapiApiService:Url"];
             var client = _factory.CreateClient("covid-rapidapi-service");
+            var key = _config["CovidRapiApiService:Key"];
+            var host = _config["CovidRapiApiService:Host"];
             client.BaseAddress = new Uri(baseUrl);
-            client.DefaultRequestHeaders.Add("x-rapidapi-key", _config["CovidRapiApiService:Key"]);
-            client.DefaultRequestHeaders.Add("x-rapidapi-host", _config["CovidRapiApiService:Host"]);
+            client.DefaultRequestHeaders.Add("x-rapidapi-key", key);
+            client.DefaultRequestHeaders.Add("x-rapidapi-host", host);
             return client;
         }
     }

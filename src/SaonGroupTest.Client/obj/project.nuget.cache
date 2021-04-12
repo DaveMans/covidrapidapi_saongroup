@@ -1,8 +1,17 @@
 {
   "version": 2,
-  "dgSpecHash": "w0mSfFvYBlY37Q3/Gkzefo1Ljmho2btWcvrM8YoIwNaK56kgj2PN/MTUH3G5aAcqrTmCtGYU+vo3BAwO7JNSDw==",
+  "dgSpecHash": "l/5ida3nxoySnHT18lcLE0na5IjVb0xlISsSwDvLQAyAYu6ByxF77apBvMLRBRIN9frmxiObrnZ0nC0Nw3CH8w==",
   "success": true,
   "projectFilePath": "D:\\Source Code\\repos\\saongroup-test\\src\\SaonGroupTest.Client\\SaonGroupTest.Client.csproj",
-  "expectedPackageFiles": [],
+  "expectedPackageFiles": [
+    "C:\\Users\\rdavi\\.nuget\\packages\\microsoft.extensions.dependencyinjection\\5.0.0\\microsoft.extensions.dependencyinjection.5.0.0.nupkg.sha512",
+    "C:\\Users\\rdavi\\.nuget\\packages\\microsoft.extensions.dependencyinjection.abstractions\\5.0.0\\microsoft.extensions.dependencyinjection.abstractions.5.0.0.nupkg.sha512",
+    "C:\\Users\\rdavi\\.nuget\\packages\\microsoft.extensions.http\\5.0.0\\microsoft.extensions.http.5.0.0.nupkg.sha512",
+    "C:\\Users\\rdavi\\.nuget\\packages\\microsoft.extensions.logging\\5.0.0\\microsoft.extensions.logging.5.0.0.nupkg.sha512",
+    "C:\\Users\\rdavi\\.nuget\\packages\\microsoft.extensions.logging.abstractions\\5.0.0\\microsoft.extensions.logging.abstractions.5.0.0.nupkg.sha512",
+    "C:\\Users\\rdavi\\.nuget\\packages\\microsoft.extensions.options\\5.0.0\\microsoft.extensions.options.5.0.0.nupkg.sha512",
+    "C:\\Users\\rdavi\\.nuget\\packages\\microsoft.extensions.primitives\\5.0.0\\microsoft.extensions.primitives.5.0.0.nupkg.sha512",
+    "C:\\Users\\rdavi\\.nuget\\packages\\newtonsoft.json\\13.0.1\\newtonsoft.json.13.0.1.nupkg.sha512"
+  ],
   "logs": []
 }

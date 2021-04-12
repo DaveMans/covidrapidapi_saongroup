@@ -1,13 +1,10 @@
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Threading.Tasks;
+using System.Net.Http;
 using Microsoft.AspNetCore.Builder;
 using Microsoft.AspNetCore.Hosting;
-using Microsoft.AspNetCore.HttpsPolicy;
 using Microsoft.Extensions.Configuration;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.Extensions.Hosting;
+using SaonGroupTest.Client.Services;
 
 namespace SaonGroupTest.Client
 {
@@ -24,6 +21,8 @@ namespace SaonGroupTest.Client
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllersWithViews();
+            services.AddHttpClient();
+            services.AddTransient<ICovidRapiApiService, CovidRapiApiService>();
         }
 
         // This method gets called by the runtime. Use this method to configure the HTTP request pipeline.

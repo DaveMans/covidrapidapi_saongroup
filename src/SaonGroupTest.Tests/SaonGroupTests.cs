@@ -8,7 +8,7 @@ namespace SaonGroupTest.Tests
         [Fact]
         public void Test1()
         {
-
+            // Method intentionally left empty.
         }
     }
 }
