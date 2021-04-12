@@ -43,7 +43,7 @@ namespace SaonGroupTest.Client.Services
 
         public List<ReportResultDtoModel> FormatReportData(List<ReportDtoModel> baseData, bool areAllRegions)
         {
-            var reportRawData = new List<ReportResultDtoModel>();
+            List<ReportResultDtoModel> reportRawData = new();
 
             if (areAllRegions)
             {
