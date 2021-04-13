@@ -38,7 +38,10 @@
           resolve(result);
           $("#overlay").attr("style", "display:none");
         },
-        error: function () {
+        error: function (xhr, textStatus, error) {
+          console.log(xhr.statusText);
+          console.log(textStatus);
+          console.log(error);
           swal("Error", "There was an error, please try again!", "error");
           reject();
           $("#overlay").attr("style", "display:none");
