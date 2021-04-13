@@ -7,3 +7,14 @@
 **this exercise uses the public** -> [COVID-19 API](https://rapidapi.com/axisbits-axisbits-default/api/covid-19-statistics)
 
 # [DEMO](https://covidrapidapitest.azurewebsites.net/)
+
+
+## Description:
+
+This is a .NET (Core) 5 MVC aplication.
+
+## Instructions to run in a local environment:
+
+1. Clone the repo: git@github.com:DaveMans/covidrapidapi_saongroup.git
+2. Execute: dotnet restore
+3. Execute: dotnet run --project src/SaonGroupTest.Client/ 
