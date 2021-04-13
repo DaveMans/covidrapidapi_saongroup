@@ -27,7 +27,7 @@ namespace SaonGroupTest.Client.Services
         public async Task<List<CountryDtoModel>> GetRegionsList()
         {
             var client = GetClient();
-            var path = $"/regions";
+            var path = $"regions";
             var response = await client.GetFromJsonAsync<RegionDtoModel>(path);
             var result = response.data.OrderBy(x => x.name).Select(x => x).ToList();
             var allRegionsItem = new CountryDtoModel
